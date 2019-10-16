@@ -5,6 +5,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -19,6 +21,7 @@ public class OrderController {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+    @RequestMapping(value = "/localOrderUp", method = RequestMethod.PUT)
     public String sendOrder(String order, String name){
         System.out.println("I'll ask someone to get that for you "+ name);
         URI uri = URI.create("http://localhost:8080/orderUp/");

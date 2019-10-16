@@ -18,6 +18,9 @@ public class SortCoffeeOrderService implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
+
+
+
         String message = (String)execution.getVariable("message");
         if(message.toLowerCase().contains("coffee")){
             URI uri = URI.create("http://localhost:8081/WorkIt/");
