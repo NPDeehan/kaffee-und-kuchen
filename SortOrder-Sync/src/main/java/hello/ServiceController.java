@@ -21,20 +21,22 @@ public class ServiceController {
     @Autowired
     SortCoffeeOrderService sortCoffeeOrder;
 
-    @RequestMapping(value = "/orderUp", method = RequestMethod.PUT)
+    @RequestMapping(value = "/orderUp", method = RequestMethod.POST)
     public String index(@RequestBody OrderMessageRequest orderMessageRequest) throws Exception {
 
+        System.out.println("Got this message for Mike: " + orderMessageRequest.orderMessage);
+       // Map<String, Object> vars = new HashMap<String, Object>();
+        String orderMessage = "";
+
         if(orderMessageRequest.orderMessage.toLowerCase().contains("cake")){
+            orderMessage = orderMessage + " Cake ";
             sortCakeOrder.execute();
         }
         if(orderMessageRequest.orderMessage.toLowerCase().contains("coffee")){
+            orderMessage = orderMessage + " Coffee ";
             sortCoffeeOrder.execute();
         }
 
-
-
-
-
-        return "Order is Taken Care of";
+        return "Order of " + orderMessage + " Is Ready";
     }
 }
