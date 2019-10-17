@@ -28,7 +28,7 @@ public class CashierConversation {
                 System.out.println("And what is your name?");
                 String name = scanner.nextLine();
                 try {
-                    mike.sendOrder(order, name);
+                   // mike.sendOrder(order, name);
                 }catch(Exception e){
                     e.printStackTrace();
                 }

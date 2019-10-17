@@ -3,11 +3,16 @@ $( "#form" ).submit(function( event ) {
   event.preventDefault();
     var data = { orderName: $("#Name").val(), orderMessage: $("#Order").val() };
   $.ajax({
-    method: "PUT",
-    url: "http://localhost:8080/orderUp/",
-    data: data
+    method: "POST",
+    contentType:"application/json; charset=utf-8",
+    dataType:"json",
+    url: "/localOrderUp",
+    data: JSON.stringify(data)
   })
     .done(function( msg ) {
-      alert( "Data Saved: " + msg );
+    		$('.response').append(msg);
+      
+    }).fail(function( jqXHR, textStatus ) {
+    	  $('.response').append('<p>'+jqXHR.responseText+'</p>');
     });
 });

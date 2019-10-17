@@ -20,7 +20,7 @@ public class ServiceController {
     private RuntimeService runtimeService;
 
 
-    @RequestMapping(value = "/orderUp", method = RequestMethod.PUT)
+    @RequestMapping(value = "/orderUp", method = RequestMethod.POST)
     public String index(@RequestBody OrderMessageRequest orderMessageRequest){
 
         System.out.println("Got this message for Mike: " + orderMessageRequest.orderMessage);

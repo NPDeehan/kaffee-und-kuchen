@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1d8gzmj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.3.5">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1d8gzmj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.2.1">
   <bpmn:process id="ProcessOrder" name="Process Order" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_0x4prne</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0x4prne" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_1s83lpq" />
-    <bpmn:serviceTask id="Task_00j8fvg" name="Sort the Cake order" camunda:asyncBefore="true" camunda:exclusive="false" camunda:delegateExpression="${sortCakeOrder}">
+    <bpmn:serviceTask id="Task_00j8fvg" name="Sort the Cake order" camunda:asyncBefore="true" camunda:delegateExpression="${sortCakeOrder}">
       <bpmn:incoming>SequenceFlow_1qfb9qb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1h66828</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="EndEvent_1oajd16">
       <bpmn:incoming>SequenceFlow_0nhi2ol</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_01zc39e" name="Sort Coffee Order" camunda:asyncBefore="true" camunda:exclusive="false" camunda:delegateExpression="#{sortCoffeeOrder}">
+    <bpmn:serviceTask id="Task_01zc39e" name="Sort Coffee Order" camunda:asyncBefore="true" camunda:delegateExpression="#{sortCoffeeOrder}">
       <bpmn:incoming>SequenceFlow_0mpy8jg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0kmu169</bpmn:outgoing>
     </bpmn:serviceTask>
