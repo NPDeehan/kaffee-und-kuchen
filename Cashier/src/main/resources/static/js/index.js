@@ -1,3 +1,4 @@
+var stompClient = null;
 var $loading = $('#loadingDiv').hide();
 $(document)
   .ajaxStart(function () {
@@ -11,10 +12,10 @@ function connect() {
     var socket = new SockJS('/twitter-example');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        setConnected(true);
-        console.log('Connected: ' + frame);
+
         stompClient.subscribe('/topic/message', function (greeting) {
-            console.log(greeting)
+            console.log(greeting.body)
+            $('.response').append(greeting.body);
         });
     });
 }
