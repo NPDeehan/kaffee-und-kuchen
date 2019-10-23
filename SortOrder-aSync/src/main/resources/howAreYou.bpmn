@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1d8gzmj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.2.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1d8gzmj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
   <bpmn:process id="ProcessOrder" name="Process Order" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>SequenceFlow_0x4prne</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0x4prne" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_1s83lpq" />
-    <bpmn:serviceTask id="Task_00j8fvg" name="Sort the Cake order" camunda:asyncBefore="true" camunda:delegateExpression="${sortCakeOrder}">
+    <bpmn:serviceTask id="Task_00j8fvg" name="Sort the Cake order" camunda:asyncBefore="true" camunda:exclusive="false" camunda:delegateExpression="${sortCakeOrder}">
       <bpmn:incoming>SequenceFlow_1qfb9qb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1h66828</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="EndEvent_1oajd16">
       <bpmn:incoming>SequenceFlow_0nhi2ol</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_01zc39e" name="Sort Coffee Order" camunda:asyncBefore="true" camunda:delegateExpression="#{sortCoffeeOrder}">
+    <bpmn:serviceTask id="Task_01zc39e" name="Sort Coffee Order" camunda:asyncBefore="true" camunda:exclusive="false" camunda:delegateExpression="#{sortCoffeeOrder}">
       <bpmn:incoming>SequenceFlow_0mpy8jg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0kmu169</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1qfb9qb" sourceRef="ExclusiveGateway_1s83lpq" targetRef="Task_00j8fvg" />
-    <bpmn:parallelGateway id="ExclusiveGateway_1s83lpq">
-      <bpmn:incoming>SequenceFlow_0x4prne</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1qfb9qb</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0mpy8jg</bpmn:outgoing>
-    </bpmn:parallelGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_0mpy8jg" sourceRef="ExclusiveGateway_1s83lpq" targetRef="Task_01zc39e" />
+    <bpmn:sequenceFlow id="SequenceFlow_1qfb9qb" sourceRef="ExclusiveGateway_1s83lpq" targetRef="Task_00j8fvg">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{message.contains('cake')}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0mpy8jg" sourceRef="ExclusiveGateway_1s83lpq" targetRef="Task_01zc39e">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{message.contains('coffee')}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0kmu169" sourceRef="Task_01zc39e" targetRef="Task_0r6t9lo" />
-    <bpmn:serviceTask id="Task_0r6t9lo" name="Tell Cashier the coffee is ready" camunda:delegateExpression="#{tellCashierAboutOrder}">
+    <bpmn:serviceTask id="Task_0r6t9lo" name="Tell Cashier the coffee is ready" camunda:asyncBefore="true" camunda:exclusive="false" camunda:delegateExpression="#{tellCashierAboutOrder}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderMessage">Coffee</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0kmu169</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_03xrlbw</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -34,66 +38,89 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_03xrlbw" sourceRef="Task_0r6t9lo" targetRef="EndEvent_1fyx4iz" />
     <bpmn:sequenceFlow id="SequenceFlow_0nhi2ol" sourceRef="Task_1ld3kvd" targetRef="EndEvent_1oajd16" />
-    <bpmn:serviceTask id="Task_1ld3kvd" name="Tell Cashier the Cake is ready" camunda:delegateExpression="#{tellCashierAboutOrder}">
+    <bpmn:serviceTask id="Task_1ld3kvd" name="Tell Cashier the Cake is ready" camunda:asyncBefore="true" camunda:exclusive="false" camunda:delegateExpression="#{tellCashierAboutOrder}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="orderMessage">Cake</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1h66828</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0nhi2ol</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:inclusiveGateway id="ExclusiveGateway_1s83lpq" default="SequenceFlow_1fyttf0">
+      <bpmn:incoming>SequenceFlow_0x4prne</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1qfb9qb</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0mpy8jg</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1fyttf0</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:endEvent id="EndEvent_18fh81r">
+      <bpmn:incoming>SequenceFlow_1fyttf0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fyttf0" sourceRef="ExclusiveGateway_1s83lpq" targetRef="EndEvent_18fh81r" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ProcessOrder">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="152" y="103" width="36" height="36" />
+        <dc:Bounds x="152" y="193" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0x4prne_di" bpmnElement="SequenceFlow_0x4prne">
-        <di:waypoint x="188" y="121" />
-        <di:waypoint x="225" y="121" />
+        <di:waypoint x="188" y="211" />
+        <di:waypoint x="225" y="211" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0sij7h4_di" bpmnElement="Task_00j8fvg">
-        <dc:Bounds x="310" y="81" width="100" height="80" />
+        <dc:Bounds x="380" y="171" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1oajd16_di" bpmnElement="EndEvent_1oajd16">
-        <dc:Bounds x="612" y="103" width="36" height="36" />
+        <dc:Bounds x="682" y="193" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0hq7k61_di" bpmnElement="Task_01zc39e">
-        <dc:Bounds x="310" y="210" width="100" height="80" />
+        <dc:Bounds x="380" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1qfb9qb_di" bpmnElement="SequenceFlow_1qfb9qb">
-        <di:waypoint x="275" y="121" />
-        <di:waypoint x="310" y="121" />
+        <di:waypoint x="275" y="211" />
+        <di:waypoint x="380" y="211" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ParallelGateway_1lmgudi_di" bpmnElement="ExclusiveGateway_1s83lpq">
-        <dc:Bounds x="225" y="96" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0mpy8jg_di" bpmnElement="SequenceFlow_0mpy8jg">
-        <di:waypoint x="250" y="146" />
-        <di:waypoint x="250" y="250" />
-        <di:waypoint x="310" y="250" />
+        <di:waypoint x="250" y="236" />
+        <di:waypoint x="250" y="340" />
+        <di:waypoint x="380" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0kmu169_di" bpmnElement="SequenceFlow_0kmu169">
-        <di:waypoint x="410" y="250" />
-        <di:waypoint x="460" y="250" />
+        <di:waypoint x="480" y="340" />
+        <di:waypoint x="530" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0xpaory_di" bpmnElement="Task_0r6t9lo">
-        <dc:Bounds x="460" y="210" width="100" height="80" />
+        <dc:Bounds x="530" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1h66828_di" bpmnElement="SequenceFlow_1h66828">
-        <di:waypoint x="410" y="121" />
-        <di:waypoint x="460" y="121" />
+        <di:waypoint x="480" y="211" />
+        <di:waypoint x="530" y="211" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1fyx4iz_di" bpmnElement="EndEvent_1fyx4iz">
-        <dc:Bounds x="612" y="232" width="36" height="36" />
+        <dc:Bounds x="682" y="322" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_03xrlbw_di" bpmnElement="SequenceFlow_03xrlbw">
-        <di:waypoint x="560" y="250" />
-        <di:waypoint x="612" y="250" />
+        <di:waypoint x="630" y="340" />
+        <di:waypoint x="682" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0nhi2ol_di" bpmnElement="SequenceFlow_0nhi2ol">
-        <di:waypoint x="560" y="121" />
-        <di:waypoint x="612" y="121" />
+        <di:waypoint x="630" y="211" />
+        <di:waypoint x="682" y="211" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_075w8g0_di" bpmnElement="Task_1ld3kvd">
-        <dc:Bounds x="460" y="81" width="100" height="80" />
+        <dc:Bounds x="530" y="171" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="InclusiveGateway_1ggsy5d_di" bpmnElement="ExclusiveGateway_1s83lpq">
+        <dc:Bounds x="225" y="186" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_18fh81r_di" bpmnElement="EndEvent_18fh81r">
+        <dc:Bounds x="412" y="52" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fyttf0_di" bpmnElement="SequenceFlow_1fyttf0">
+        <di:waypoint x="250" y="186" />
+        <di:waypoint x="250" y="70" />
+        <di:waypoint x="412" y="70" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

@@ -19,7 +19,7 @@ public class TellCashierSomething implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        String orderMessage = (String)execution.getVariable("message");
+        String orderMessage = (String)execution.getVariable("orderMessage");
         String orderName = execution.getProcessBusinessKey();
 
         URI uri = URI.create("http://localhost:8082/messageForCashier/");

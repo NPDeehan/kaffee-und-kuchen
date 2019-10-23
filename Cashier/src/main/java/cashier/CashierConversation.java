@@ -11,8 +11,8 @@ import java.util.Scanner;
 @Component
 public class CashierConversation {
 
-    @Autowired
-    OrderController mike;
+//    @Autowired
+//  OrderController mike;
 
     @PostConstruct
     public void startChat() throws Exception{

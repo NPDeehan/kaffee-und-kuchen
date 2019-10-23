@@ -16,8 +16,8 @@ public class MessageForTheCashier {
     @RequestMapping(value = "/messageForCashier", method = RequestMethod.PUT)
     public String message(@RequestBody OrderMessageRequest orderMessageRequest){
 
-        System.out.println("We've got a pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName);
-        notificationApp.notify("We've got a pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName);
+        //System.out.println("We've got a pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName);
+        notificationApp.notify(" -- Pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName + " -- \n");
         return "success";
 
     }

@@ -23,10 +23,10 @@ public class OrderController {
 
     @RequestMapping(value = "/localOrderUp", method = RequestMethod.POST)
     public String sendOrder(@RequestBody OrderMessageRequest order){
-        System.out.println("I'll ask someone to get that for you "+ order.orderName);
+        System.out.println("-- Sending order  "+ order.orderName + " to our order sorter -- ");
         URI uri = URI.create("http://localhost:8080/orderUp/");
         String response = restTemplate.postForObject(uri, order, String.class);
-        System.out.println("All good - the order has been sent");
+        System.out.println("-- All good - the order has been sent -- ");
         return response;
     }
 
