@@ -17,7 +17,8 @@ public class MessageForTheCashier {
     public String message(@RequestBody OrderMessageRequest orderMessageRequest){
 
         //System.out.println("We've got a pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName);
-        notificationApp.notify(" -- Pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName + " -- \n");
+        notificationApp.notify(" -- "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName + " -- ");
+
         return "success";
 
     }

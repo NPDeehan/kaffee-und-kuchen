@@ -20,7 +20,7 @@ public class BaristaService {
         System.out.println();
         System.out.println("We've done it! -- "+ orderRequest.orderMessage);
 
-        return "You have said "+ orderRequest.orderMessage + " to mike";
+        return "You have said "+ orderRequest.orderMessage + "";
 
     }
 }
