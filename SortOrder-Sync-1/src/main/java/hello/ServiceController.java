@@ -3,6 +3,7 @@ package hello;
 import hello.orderSorter.OrderMessageRequest;
 import hello.orderSorter.SortCakeOrderService;
 import hello.orderSorter.SortCoffeeOrderService;
+import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,29 @@ public class ServiceController {
     @Autowired
     SortCoffeeOrderService sortCoffeeOrder;
 
-    @RequestMapping(value = "/orderUp", method = RequestMethod.PUT)
+    @Autowired
+    RuntimeService runtimeService;
+
+    @RequestMapping(value = "/orderUp", method = RequestMethod.POST)
     public String index(@RequestBody OrderMessageRequest orderMessageRequest) throws Exception {
 
-        sortCakeOrder.execute();
-        sortCoffeeOrder.execute();
+        System.out.println("Got this message for Mike: " + orderMessageRequest.orderMessage);
+        String orderMessage = orderMessageRequest.orderMessage;
+         Map<String, Object> vars = new HashMap<String, Object>();
+         vars.put("orderMessage", orderMessageRequest.orderMessage);
 
-        return "Order is Taken Care of";
+
+        runtimeService.startProcessInstanceByKey("ProcessOrder", vars);
+
+//        if(orderMessageRequest.orderMessage.toLowerCase().contains("cake")){
+//            orderMessage = orderMessage + " Cake ";
+//            sortCakeOrder.execute();
+//        }
+//        if(orderMessageRequest.orderMessage.toLowerCase().contains("coffee")){
+//            orderMessage = orderMessage + " Coffee ";
+//            sortCoffeeOrder.execute();
+//        }
+
+        return "Order of " + orderMessage + " Is Ready";
     }
 }

@@ -3,3 +3,22 @@ spring:
     url: jdbc:h2:mem:example-simple;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 server:
   port : 8080
+camunda:
+  bpm:
+    admin-user:
+      id: reb
+      password: reb
+      firstName: Reb
+    filter:
+      create: All tasks
+    application:
+      delete-upon-undeploy: false
+      scan-for-process-definitions: false
+      deploy-changed-only: true
+      resume-previous-versions: true
+      resume-previous-by: a value
+    job-execution:
+      enabled: true
+    metrics:
+      enabled: false
+      db-reporter-activate: false

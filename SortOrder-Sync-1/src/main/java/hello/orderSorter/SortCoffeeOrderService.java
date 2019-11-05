@@ -1,5 +1,7 @@
 package hello.orderSorter;
 
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -7,14 +9,14 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 
 @Component(value = "sortCoffeeOrder")
-public class SortCoffeeOrderService {
+public class SortCoffeeOrderService implements JavaDelegate {
     private final RestTemplate restTemplate;
 
     public SortCoffeeOrderService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public void execute(){
+    public void execute(DelegateExecution exe){
         String message = "Coffee Needed";
 
         URI uri = URI.create("http://localhost:8081/WorkIt/");

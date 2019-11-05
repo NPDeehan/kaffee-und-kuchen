@@ -1,13 +1,16 @@
 package hello.orderSorter;
 
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+
 import java.net.URI;
 
 @Component(value = "sortCakeOrder")
-public class SortCakeOrderService {
+public class SortCakeOrderService implements JavaDelegate {
     private final RestTemplate restTemplate;
 
     public SortCakeOrderService(RestTemplateBuilder restTemplateBuilder) {
@@ -16,9 +19,10 @@ public class SortCakeOrderService {
 
     long waitTimeMillis = 1000;
 
-    public void execute() throws Exception {
+    @Override
+    public void execute(DelegateExecution execution) throws Exception {
 
-            int loops = 3;
+        int loops = 3;
             System.out.println("We're Working on getting you Cake! -- " );
             while(loops >= 0) {
                 System.out.print("..");

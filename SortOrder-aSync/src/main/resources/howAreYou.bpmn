@@ -61,7 +61,7 @@
     <bpmn:serviceTask id="Task_0kk1c8u" name="Out of stock" camunda:asyncBefore="true" camunda:delegateExpression="#{tellCashierAboutOrder}">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="orderMessage">OUT OF STOCK! </camunda:inputParameter>
+          <camunda:inputParameter name="orderMessage">OUT OF STOCK!</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1fyttf0</bpmn:incoming>
@@ -131,7 +131,7 @@
         <di:waypoint x="505" y="251" />
         <di:waypoint x="610" y="251" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="523" y="233" width="70" height="14" />
+          <dc:Bounds x="523" y="223" width="70" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0mpy8jg_di" bpmnElement="SequenceFlow_0mpy8jg">
