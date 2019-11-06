@@ -15,7 +15,7 @@ function connect() {
 
         stompClient.subscribe('/topic/message', function (greeting) {
             console.log(greeting.body)
-            $('.response').append(greeting.body);
+            $('.response').append('<br>'+greeting.body+'</br>');
         });
     });
 }
@@ -34,7 +34,7 @@ $( "#form" ).submit(function( event ) {
     data: JSON.stringify(data)
   })
     .done(function( msg ) {
-    		$('.response').append(msg);
+    		$('.response').append('<br>'+msg+'</br>');
       
     }).fail(function( jqXHR, textStatus ) {
     	  $('.response').append('<p>'+jqXHR.responseText+'</p>');
