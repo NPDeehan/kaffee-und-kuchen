@@ -31,10 +31,10 @@ public class ServiceController {
         System.out.println("Got this message for Mike: " + orderMessageRequest.orderMessage);
         String orderMessage = orderMessageRequest.orderMessage;
          Map<String, Object> vars = new HashMap<String, Object>();
-         vars.put("orderMessage", orderMessageRequest.orderMessage);
+        vars.put("message", orderMessageRequest.orderMessage.toLowerCase());
+        String businessKey = orderMessageRequest.orderName;
 
-
-        runtimeService.startProcessInstanceByKey("ProcessOrder", vars);
+        runtimeService.startProcessInstanceByKey("ProcessOrder", businessKey, vars);
 
 //        if(orderMessageRequest.orderMessage.toLowerCase().contains("cake")){
 //            orderMessage = orderMessage + " Cake ";
