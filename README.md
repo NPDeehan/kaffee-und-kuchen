@@ -36,6 +36,15 @@ To start this version of the project you need to start (if you haven't already):
 
 You will need to shut down [Sort Order Sync](./SortOrder-Sync/) and instead start up [Sort Order aSync](./SortOrder-aSync/). Both use the same port (8080) so you can't run them at the same time.
 
+Once an order is made the state will be kept by the Camunda engine and you can view the current state by going to cockpit on ``http://localhost:8080/`` you can log in with:
+
+username `reb`
+
+password `reb`
+
+And navigate to cockpit or go directly through this link http://localhost:8080/app/cockpit/default/
+
+
 There are a number of changes made to Sort Order project to give us the features we need.
 * Camunda Engine is added to the project
 * Callback service is created and called
