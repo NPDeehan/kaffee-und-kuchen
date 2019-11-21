@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1d8gzmj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.4.1">
   <bpmn:process id="ProcessOrder" name="Process Order" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" camunda:asyncAfter="true">
       <bpmn:outgoing>SequenceFlow_0x4prne</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0x4prne" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_1s83lpq" />
@@ -13,6 +13,9 @@
       <bpmn:incoming>SequenceFlow_0nhi2ol</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Task_01zc39e" name="Sort Coffee Order" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:delegateExpression="#{sortCoffeeOrder}">
+      <bpmn:extensionElements>
+        <camunda:failedJobRetryTimeCycle>R4/PT30S</camunda:failedJobRetryTimeCycle>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0mpy8jg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0kmu169</bpmn:outgoing>
     </bpmn:serviceTask>

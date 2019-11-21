@@ -61,13 +61,15 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ProcessOrder">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="189" width="36" height="36" />
+        <dc:Bounds x="182" y="192" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="161" y="232" width="72" height="14" />
+          <dc:Bounds x="164" y="235" width="72" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1vnwn5v_di" bpmnElement="SequenceFlow_1vnwn5v">
-        <di:waypoint x="215" y="207" />
+        <di:waypoint x="218" y="210" />
+        <di:waypoint x="242" y="210" />
+        <di:waypoint x="242" y="207" />
         <di:waypoint x="265" y="207" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_11iviyz_di" bpmnElement="SequenceFlow_11iviyz">
