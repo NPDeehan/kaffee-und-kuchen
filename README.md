@@ -1,5 +1,5 @@
 # Kaffee und Kuchen
-This is an example of how to decouple dependent micro-services by adding the Camunda Engine as part of the architecture. The project can be seeing being demoed at this talk which took place at Devoxx Belgium 2019.
+This is an example of how to decouple dependent micro-services by adding the Camunda Engine as part of the architecture. The project can be seen being demoed at this talk, which took place at Devoxx Belgium 2019.
 
 [![Devoxx Belgium](http://img.youtube.com/vi/ky_mG4giNm4/0.jpg)](http://www.youtube.com/watch?v=ky_mG4giNm4)
 
@@ -8,25 +8,25 @@ There are 3 services a ``cashier`` frontend where you can make orders to an ``or
 ![knkarch]
 
 There are two versions of the architecture
- * Synchronous. All communication between services is completed in one transaction per request
- * Asynchronous. Each request is persisted and is completed in a new transaction while waiting for the potential of additional  requests.
+ * Synchronous. All communication between services is completed in one transaction per request.
+ * Asynchronous. Each request is persisted and completed in a new transaction while waiting for the potential of additional  requests.
 
 ## Synchronous Architecture
-To start the Synchronous version of this example open and build the following 3 spring boot projects
+To start the Synchronous version of this example open and build the following 3 Spring Boot projects
 * [Cashier](./Cashier/) - Which will start on http://localhost:8082
 * [Barista](./Barista/) - Which will start on http://localhost:8081
 * [Sort Order Sync](./SortOrder-Sync/) - Which will start on http://localhost:8080
 
-Each of these can started within your IDE as a spring boot project. You can also build them and start the jar file in the generated target folder.
+Each of these can be started within your IDE as a Spring Boot project. You can also build them and start the jar file in the generated target folder.
 
-Once each are started you can enter orders by going to the [Cashier Homepage](http://localhost:8082).
+Once each is started you can enter orders by going to the [Cashier Homepage](http://localhost:8082).
 ![knkorder1]
 
-when then submit button is clicked it will send a REST call ``http://localhost:8080/order-up`` to the Order-Sorter service with a payload that includes the order and the name of the person making the order.
-If the order contains ``coffee`` then it will call the barista service on `http://localhost:8081/WorkIt/`. Once the coffee is ready it returns to the order sorter which will return the result to the frontend which will display ``Order of [orderMessage] Is Ready``
+When the submit button is clicked it will send a REST call ``http://localhost:8080/order-up`` to the Order-Sorter service with a payload that includes the order and the name of the person making the order.
+If the order contains ``coffee`` then it will call the barista service on `http://localhost:8081/WorkIt/`. Once the coffee is ready it returns to the order sorter, which will return the result to the frontend, which will display ``Order of [orderMessage] Is Ready``
 
 ## Asynchronous Architecture
-This architecture only requires a change to the ``Order Sorter`` the Goal is to change this service so that instead of running synchronously for each request it will actually hold the state of each request and return the result of the request with an asynchronous call.
+This architecture only requires a change to the ``Order Sorter`` the goal is to change this service so that instead of running synchronously for each request, it will actually hold the state of each request and return the result of the request with an asynchronous call.
 
 ![kuk-async-arch]
 
@@ -36,13 +36,13 @@ To start this version of the project you need to start (if you haven't already):
 
 You will need to shut down [Sort Order Sync](./SortOrder-Sync/) and instead start up [Sort Order aSync](./SortOrder-aSync/). Both use the same port (8080) so you can't run them at the same time.
 
-Once an order is made the state will be kept by the Camunda engine and you can view the current state by going to cockpit on ``http://localhost:8080/`` you can log in with:
+Once an order is made the state will be kept by the Camunda Engine and you can view the current state by going to Cockpit on ``http://localhost:8080/`` you can log in with:
 
 username `reb`
 
 password `reb`
 
-And navigate to cockpit or go directly through this link http://localhost:8080/app/cockpit/default/
+Navigate to Cockpit or go directly through this link http://localhost:8080/app/cockpit/default/
 
 
 There are a number of changes made to Sort Order project to give us the features we need.
@@ -55,7 +55,7 @@ There are a number of changes made to Sort Order project to give us the features
 
 ### Camunda Engine is added to the project
 
-The Camunda engine and the Camunda webapps are added to the project by adding the following dependenies to the ``pom.xml`` file.
+The Camunda Engine and the Camunda webapps are added to the project by adding the following dependencies to the ``pom.xml`` file.
 
 ```xml
 
@@ -83,14 +83,14 @@ The process engine needs this [BPMN model](./SortOrder-aSync/src/main/resources/
 ![async-process]
 
 ### Camunda Engine is autowired in the service and a process is started
-The engine's RuntimeService is added to the ``ServiceController`` class
+The Engine's RuntimeService is added to the ``ServiceController`` class
 
 ```java
 @Autowired
 private RuntimeService runtimeService;
 ```
 
-and the process model is called directly when the REST request comes in
+and the process model is called directly when the REST request comes in.
 
 ```java
 runtimeService.startProcessInstanceByKey("ProcessOrder", businessKey, vars);
@@ -98,7 +98,7 @@ runtimeService.startProcessInstanceByKey("ProcessOrder", businessKey, vars);
 
 ### Camunda configuration added
 
-To log into the webapps a user needs to be defined this is added to the ``application.yaml`` file
+To log into the webapps a user needs to be defined. This is added to the ``application.yaml`` file
 
 ```yaml
 camunda:
