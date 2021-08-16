@@ -62,12 +62,12 @@ The Camunda Engine and the Camunda webapps are added to the project by adding th
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-            <version>3.3.1</version>
+            <version>7.15.0</version>
         </dependency>
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-            <version>3.3.1</version>
+            <version>7.15.0</version>
         </dependency>
 
 ```
