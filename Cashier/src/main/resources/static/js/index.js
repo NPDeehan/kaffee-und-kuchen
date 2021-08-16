@@ -34,7 +34,7 @@ $( "#form" ).submit(function( event ) {
     data: JSON.stringify(data)
   })
     .done(function( msg ) {
-    		$('.response').append('<br>'+msg+'</br>');
+    		$('.response').append('<br><p style="border:2px solid DodgerBlue;">'+msg+'</p>');
       
     }).fail(function( jqXHR, textStatus ) {
     	  $('.response').append('<p>'+jqXHR.responseText+'</p>');
