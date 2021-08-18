@@ -14,11 +14,25 @@ public class MessageForTheCashier {
 	NotificationApplicationListener notificationApp;
 	
     @RequestMapping(value = "/messageForCashier", method = RequestMethod.PUT)
-    public String message(@RequestBody OrderMessageRequest orderMessageRequest){
+    public String message(@RequestBody OrderMessageRequest orderMessageRequest) {
 
-        //System.out.println("We've got a pick-up of "+ orderMessageRequest.orderMessage + " for " + orderMessageRequest.orderName);
-        notificationApp.notify("<p style=\"border:2px solid Green;\"> -- "+ orderMessageRequest.orderMessage + " for" +
-                " " + orderMessageRequest.orderName + " --  </p>");
+        if (orderMessageRequest.orderMessage.contains("OUT OF STOCK") || orderMessageRequest.orderMessage.contains("No Soya")) {
+
+            notificationApp.notify("<p style=\"border:2px solid Red;\"> -- " + orderMessageRequest.orderMessage + " " +
+                    "for" +
+                    " " + orderMessageRequest.orderName + " --  </p>");
+
+        } else if (orderMessageRequest.orderMessage.contains("order is taking a little longer")) {
+            notificationApp.notify("<p style=\"border:2px solid Yellow;\"> -- " + orderMessageRequest.orderMessage +
+                    " " +
+                    "for" +
+                    " " + orderMessageRequest.orderName + " --  </p>");
+        } else {
+            notificationApp.notify("<p style=\"border:2px solid Green;\"> -- " + orderMessageRequest.orderMessage + " for" +
+                    " " + orderMessageRequest.orderName + " --  </p>");
+        }
+
+
 
         return "success";
 
